@@ -43,12 +43,6 @@ body.addEventListener('click', (e) => {
     rowCount--;
   }
 
-  // if (rowCount <= 2) {
-  //   removeRowButton.disabled = true;
-  // } else if (rowCount > 2) {
-  //   removeRowButton.removeAttribute('disabled');
-  // }
-
   switch (rowCount) {
     case 2:
       removeRowButton.disabled = true;
