@@ -5,44 +5,43 @@ const table = document.querySelector('table');
 const body = document.querySelector('body');
 const rows = table.rows;
 let rowCount = 4;
-// let columnCount = 4;
+let columnCount = 4;
+const addRowButton = document.querySelector('.append-row');
+const removeRowButton = document.querySelector('.remove-row');
+const addColumnButton = document.querySelector('.append-column');
+const removeColumnButton = document.querySelector('.remove-column');
 
-body.addEventListener('click', (e) => {
-  const addRowButton = e.target.closest('.append-row');
-  const removeRowButton = e.target.closest('.remove-row');
-  const addColumnButton = e.target.closest('.append-column');
-  const removeColumn = e.target.closest('.remove-column');
+addRowButton.addEventListener('click', () => {
+  const rowTr = tbody.children[0].cloneNode(true);
 
-  if (addColumnButton) {
-    for (let i = 0; i < rows.length; i++) {
-      rows[i].insertCell(-1);
-    }
+  tbody.append(rowTr);
 
-    // columnCount++;
+  rowCount++;
+});
+
+removeRowButton.addEventListener('click', () => {
+  tbody.deleteRow(-1);
+
+  rowCount--;
+});
+
+addColumnButton.addEventListener('click', () => {
+  for (let i = 0; i < rows.length; i++) {
+    rows[i].insertCell(-1);
   }
 
-  if (removeColumn) {
-    for (let i = 0; i < rows.length; i++) {
-      rows[i].deleteCell(-1);
-    }
+  columnCount++;
+});
 
-    // columnCount--;
+removeColumnButton.addEventListener('click', () => {
+  for (let i = 0; i < rows.length; i++) {
+    rows[i].deleteCell(-1);
   }
 
-  if (addRowButton) {
-    const rowTr = tbody.children[0].cloneNode(true);
+  columnCount--;
+});
 
-    tbody.append(rowTr);
-
-    rowCount++;
-  }
-
-  if (removeRowButton) {
-    tbody.deleteRow(-1);
-
-    rowCount--;
-  }
-
+body.addEventListener('click', () => {
   switch (rowCount) {
     case 2:
       removeRowButton.disabled = true;
@@ -55,6 +54,21 @@ body.addEventListener('click', (e) => {
     default:
       removeRowButton.disabled = false;
       addRowButton.disabled = false;
+      break;
+  }
+
+  switch (columnCount) {
+    case 2:
+      removeColumnButton.disabled = true;
+      addColumnButton.disabled = false;
+      break;
+    case 10:
+      addColumnButton.disabled = true;
+      removeColumnButton.disabled = false;
+      break;
+    default:
+      removeColumnButton.disabled = false;
+      addColumnButton.disabled = false;
       break;
   }
 });
