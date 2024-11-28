@@ -2,7 +2,6 @@
 
 const tbody = document.querySelector('tbody');
 const table = document.querySelector('table');
-const body = document.querySelector('body');
 const rows = table.rows;
 let rowCount = 4;
 let columnCount = 4;
@@ -17,12 +16,28 @@ addRowButton.addEventListener('click', () => {
   tbody.append(rowTr);
 
   rowCount++;
+
+  if (removeRowButton.disabled) {
+    removeRowButton.disabled = false;
+  }
+
+  if (rowCount === 10) {
+    addRowButton.disabled = true;
+  }
 });
 
 removeRowButton.addEventListener('click', () => {
   tbody.deleteRow(-1);
 
   rowCount--;
+
+  if (addRowButton.disabled) {
+    addRowButton.disabled = false;
+  }
+
+  if (rowCount === 2) {
+    removeRowButton.disabled = true;
+  }
 });
 
 addColumnButton.addEventListener('click', () => {
@@ -31,6 +46,14 @@ addColumnButton.addEventListener('click', () => {
   }
 
   columnCount++;
+
+  if (removeColumnButton.disabled) {
+    removeColumnButton.disabled = false;
+  }
+
+  if (columnCount === 10) {
+    addColumnButton.disabled = true;
+  }
 });
 
 removeColumnButton.addEventListener('click', () => {
@@ -39,36 +62,12 @@ removeColumnButton.addEventListener('click', () => {
   }
 
   columnCount--;
-});
 
-body.addEventListener('click', () => {
-  switch (rowCount) {
-    case 2:
-      removeRowButton.disabled = true;
-      addRowButton.disabled = false;
-      break;
-    case 10:
-      addRowButton.disabled = true;
-      removeRowButton.disabled = false;
-      break;
-    default:
-      removeRowButton.disabled = false;
-      addRowButton.disabled = false;
-      break;
+  if (addColumnButton.disabled) {
+    addColumnButton.disabled = false;
   }
 
-  switch (columnCount) {
-    case 2:
-      removeColumnButton.disabled = true;
-      addColumnButton.disabled = false;
-      break;
-    case 10:
-      addColumnButton.disabled = true;
-      removeColumnButton.disabled = false;
-      break;
-    default:
-      removeColumnButton.disabled = false;
-      addColumnButton.disabled = false;
-      break;
+  if (columnCount === 2) {
+    removeColumnButton.disabled = true;
   }
 });
